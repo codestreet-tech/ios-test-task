@@ -1,4 +1,4 @@
-<img width="816" height="388" alt="image" src="https://github.com/user-attachments/assets/28de97b1-2a05-43e7-9422-c290f6151d54" />
+<img width="803" height="374" alt="cover" src="https://github.com/user-attachments/assets/42b71012-3ba2-41a5-aad5-b2a6a244b8b1" />
 
 Загальні вимоги
 
