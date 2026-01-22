@@ -40,6 +40,9 @@ UI: SwiftUI [Посилання на дизайн](https://www.figma.com/design/
 
 Екран 1 — Login
 
+<img width="3054" height="2228" alt="image" src="https://github.com/user-attachments/assets/af98b13d-9b1f-4704-aed7-c54af84dc80b" />
+
+
 UI
 
 	•	TextField: username
@@ -54,6 +57,8 @@ UI
 ⸻
 
 Екран 2 — Room State
+
+<img width="3958" height="2228" alt="image" src="https://github.com/user-attachments/assets/36c4ce5d-d2e1-4bb0-9f8d-615e64d72c42" />
 
 Екран управління з’єднанням із signaling server.
 
@@ -107,6 +112,8 @@ UI має оновлюватися відповідно.
 ⸻
 
 Екран 3 — Video Chat
+
+<img width="2104" height="2228" alt="image" src="https://github.com/user-attachments/assets/d70a15ec-7c32-4c16-8ccf-ae576958e70e" />
 
 Головний WebRTC-екран.
 
