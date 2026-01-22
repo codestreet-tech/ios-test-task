@@ -2,8 +2,10 @@
 
 Загальні вимоги
 
-UI: SwiftUI
+UI: SwiftUI [Посилання на дизайн](https://www.figma.com/design/RBK1grYLtP9EQEUMRxUu9z/Code-Street?node-id=0-1&t=JoGJiYnO2ZtEoSP3-1)
+
 Архітектура: MVVM + Coordinator (рекомендовано Stinsen, але можна власну реалізацію)
+	
 	•	Логіка сигналінгу: Socket.IO
 	•	WebRTC:
 	•	на симуляторі — тестове відео webRtcTestVideo.mp4 (або будь-яке інше)
@@ -14,6 +16,7 @@ UI: SwiftUI
 Логіка async / потоків даних
 
 У всіх сервісах (Socket.IO, WebRTC, Coordinator interaction, VM → Service) потрібно використовувати єдиний підхід до асинхронності:
+
 	•	або Swift Concurrency (async/await, AsyncStream)
 	•	або Combine (Publisher/Subscriber)
 
@@ -22,6 +25,7 @@ UI: SwiftUI
 (наприклад .task {} + Combine subscription).
 
 Отже:
+
 	•	сервіс WebRTC → повністю async/await або повністю Combine
 	•	сервіс SocketIO → теж один підхід
 	•	логіка координатора → один підхід
@@ -37,11 +41,13 @@ UI: SwiftUI
 Екран 1 — Login
 
 UI
+
 	•	TextField: username
 	•	TextField: roomId (Int)
 	•	Button: Продовжити
 
 Логіка
+
 	•	username і roomId зберігаються через UserDefaults / Keychain
 	•	після натискання переходити на екран кімнати
 
@@ -52,10 +58,13 @@ UI
 Екран управління з’єднанням із signaling server.
 
 UI
+
 	•	Label: username
 	•	Label: roomId
 	•	Toggle / Switch: isCaller
+	
 — після підключення до сокета має змінюватися на статичний текст із роллю
+
 	•	Button:
 	•	“Під’єднатись” → коли socket не підключений
 	•	“Від’єднатись” → коли socket підключений
@@ -74,7 +83,7 @@ UI
 Події Socket.IO для цього екрана
 
 Підключення peer’a
-
+```
 event: room_user_joined
 payload:
 
@@ -83,16 +92,16 @@ payload:
   "roomId": 1,
   "isCaller": false
 }
-
+```
 Відключення peer’a
-
+```
 event: room_user_left
 payload:
 
 {
   "username": "Bob"
 }
-
+```
 UI має оновлюватися відповідно.
 
 ⸻
@@ -102,6 +111,7 @@ UI має оновлюватися відповідно.
 Головний WebRTC-екран.
 
 UI
+
 	•	Remote Video View
 	•	Local Video View
 	•	Текст: ім’я піра
@@ -110,12 +120,14 @@ UI
 Основна логіка
 
 Якщо користувач — Caller
+
 	1.	Створює offer
 	2.	Емітить offer
 	3.	Чекає answer
 	4.	Обмін candidate
 
 Якщо користувач — Callee
+
 	1.	Чекає offer
 	2.	Встановлює remoteDescription
 	3.	Створює answer
@@ -125,14 +137,16 @@ UI
 ⸻
 
 Логіка завершення дзвінка
+
 	•	Приходить room_user_left
-→ дзвінок завершується
-→ повернення на Room State
-→ WebRTC peer connection закривається
+	→ дзвінок завершується
+	→ повернення на Room State
+	→ WebRTC peer connection закривається
 
 ⸻
 
 Симулятор
+
 	•	локальний відеотрек обов’язково використовує webRtcTestVideo.mp4
 
 ⸻
@@ -144,21 +158,23 @@ UI
 Усі події сигналінгу не типізовані, сервер передає payload як є.
 
 Приклади:
-
+```
 offer
 
 {
   "type": "offer",
   "sdp": "STRING"
 }
-
+```
+```
 answer
 
 {
   "type": "answer",
   "sdp": "STRING"
 }
-
+```
+```
 candidate
 
 {
@@ -166,28 +182,30 @@ candidate
   "sdpMid": "0",
   "sdpMLineIndex": 0
 }
-
+```
 
 ⸻
 
 Socket Server
 
 У комплекті видаються:
+
 	•	index.js
 	•	SIGNALING_SERVER_SETUP.md
 	•	SIGNALING_PROTOCOL.md
 
 Перед запуском клієнта:
-
+```
 npm install
 node index.js
-
+```
 
 ⸻
 
 Що очікується в результаті
 
 Посилання на GitHub-репозиторій із:
+
 	•	MVVM + Coordinator
 	•	Робочий WebRTC дзвінок Caller ↔ Callee
 	•	Робота в симуляторі (тестове відео)
@@ -198,4 +216,6 @@ node index.js
 	•	WebRTC
 
 Буде плюсом:
-винесення сервісів у окремий Swift Package
+
+	•	Винесення сервісів у окремий Swift Package 
+	•	Слідування наданому дизайну
